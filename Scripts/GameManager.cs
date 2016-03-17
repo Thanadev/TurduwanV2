@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum Stat {NEEDS, CULTURE, SOCIALS, SCIENCE};
-
 public class GameManager : MonoBehaviour {
 	//Jauges
 	public float needs;
@@ -11,9 +9,14 @@ public class GameManager : MonoBehaviour {
 	public float science;
 	public float demons;
 
+	public GuiManager guiM;
+
 	// Use this for initialization
 	void Start () {
-		MainController.loadSpell(0).onSpellActivated();
+		guiM.needs.text = needs.ToString();
+		guiM.culture.text = culture.ToString();
+		guiM.science.text = science.ToString();
+		guiM.socials.text = socials.ToString();
 	}
 	
 	// Update is called once per frame
@@ -26,18 +29,23 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public static void modifyStat(string stat, float modifier){
+		GameManager instance = getInstance();
 		switch (stat) {
 		case "Needs" :
-			GameManager.getInstance().needs += modifier;
+			instance.needs += modifier;
+			instance.guiM.needs.text = instance.needs.ToString();
 			break;
 		case "Culture" :
-			GameManager.getInstance().culture += modifier;
+			instance.culture += modifier;
+			instance.guiM.culture.text = instance.culture.ToString();
 			break;
 		case "Science" :
-			GameManager.getInstance().science += modifier;
+			instance.science += modifier;
+			instance.guiM.science.text = instance.science.ToString();
 			break;
 		case "Socials" :
-			GameManager.getInstance().socials += modifier;
+			instance.socials += modifier;
+			instance.guiM.socials.text = instance.socials.ToString();
 			break;
 		}
 	}
