@@ -1,0 +1,43 @@
+{
+  "0" : {
+	"Id" : 0,
+    "Name" : "Calcination",
+    "Orders" : [
+      "STATS;Needs;-0.3",
+      "STATS;Culture;-0.3",
+      "STATS;Science;-0",
+      "STATS;Socials;+0.3"
+    
+    ]
+  },
+  "3" : {
+	"Id" : 3,
+    "Name" : "Eveil",
+    "Orders" : [
+      "STATS;Needs;+0.3",
+     "STATS;Culture;-0.15",
+     "STATS;Science;-0.3",
+     "STATS;Socials;-0.3"
+    ]
+  },
+  "6" : {
+	"Id" : 6,
+    "Name" : "Discours des vents",
+    "Orders" : [
+     "STATS;Needs;-0.15",
+     "STATS;Culture;+0.3",
+     "STATS;Science;+0.15",
+     "STATS;Socials;+0.3"
+    ]
+  },
+  "9" : {
+	"Id" : 9,
+    "Name" : "Serpent des eaux",
+    "Orders" : [
+     "STATS;Needs;+0.3",
+     "STATS;Culture;+0.15",
+     "STATS;Science;-0.3",
+     "STATS;Socials;-0.3"
+    ]
+  }
+}
