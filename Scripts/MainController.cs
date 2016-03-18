@@ -21,7 +21,7 @@ public class MainController {
 	public static GodData loadGod (int godID) {
 		JSONObject json = JSONObject.Parse(getJsonFromFile("gods.json"));
 		json = json.GetObject(godID.ToString());
-		int id = (int)json.GetNumber("Id");
+		int id = (int) json.GetNumber("Id");
 		string godName = json.GetString("Name");
 		string title = json.GetString("Title");
 		JSONArray jSpells = json.GetArray("Spells");
@@ -36,17 +36,24 @@ public class MainController {
 	public static GameResource loadGameResources (int resourceId) {
 		JSONObject json = JSONObject.Parse(getJsonFromFile("gameResources.json"));
 		json = json.GetObject(resourceId.ToString());
+
 		int id = (int)json.GetNumber("Id");
 		string resourceName = json.GetString("Name");
 		int duration = (int)json.GetNumber("Duration");
 		string resourceType = json.GetString("Type");
 		string resourceImage = json.GetString("Image");
+
 		JSONObject valuePerTick = json.GetObject ("ValuePerTick");
 		float VptNeeds =(float)valuePerTick.GetNumber("Needs");
 		float VptCulture = (float)valuePerTick.GetNumber("Culture");
 		float VptScience = (float)valuePerTick.GetNumber("Science");
 		float VptSocials = (float)valuePerTick.GetNumber("Socials");
-		return new GameResource (id, resourceName, resourceType, resourceImage, duration, VptNeeds, VptCulture, VptScience, VptSocials);
+
+		if (resourceType == ResourceType.FOOD.ToString()) {
+			return new FoodResource (id, resourceName, resourceImage, duration, VptNeeds, VptCulture, VptScience, VptSocials);
+		} else {
+			return new WealthResource (id, resourceName, resourceImage, duration, VptNeeds, VptCulture, VptScience, VptSocials);
+		}
 	}
 
 	public static Order loadOrder (string order) {
@@ -69,6 +76,9 @@ public class MainController {
 				break;
 			}
 			return new OrderStat (stat, float.Parse(splitOrder[2]));
+			break;
+		case "SPAWN":
+			return new OrderSpawn(loadGameResources(int.Parse(splitOrder[2])));
 			break;
 		default:
 			Debug.LogError("Order type not implemented !");

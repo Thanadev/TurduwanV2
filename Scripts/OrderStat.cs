@@ -11,7 +11,7 @@ public class OrderStat : Order {
 		this.stat = stat;
 	}
 
-	public override void execute ()
+	public override void execute (RaycastHit target)
 	{
 		GameManager.getInstance().civi.modifyStat((int) stat, modifier);
 	}

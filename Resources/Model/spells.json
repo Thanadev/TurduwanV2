@@ -1,43 +1,77 @@
 {
-  "0" : {
-	"Id" : 0,
-    "Name" : "Calcination",
-    "Orders" : [
-      "STATS;Needs;-0.3",
-      "STATS;Culture;-0.3",
-      "STATS;Science;-0",
-      "STATS;Socials;+0.3"
-    
-    ]
-  },
-  "3" : {
-	"Id" : 3,
-    "Name" : "Eveil",
-    "Orders" : [
-      "STATS;Needs;+0.3",
-     "STATS;Culture;-0.15",
-     "STATS;Science;-0.3",
-     "STATS;Socials;-0.3"
-    ]
-  },
-  "6" : {
-	"Id" : 6,
-    "Name" : "Discours des vents",
-    "Orders" : [
-     "STATS;Needs;-0.15",
-     "STATS;Culture;+0.3",
-     "STATS;Science;+0.15",
-     "STATS;Socials;+0.3"
-    ]
-  },
-  "9" : {
-	"Id" : 9,
-    "Name" : "Serpent des eaux",
-    "Orders" : [
-     "STATS;Needs;+0.3",
-     "STATS;Culture;+0.15",
-     "STATS;Science;-0.3",
-     "STATS;Socials;-0.3"
-    ]
-  }
+  "0" : {
+    "Id" : "0",
+    "Name" : "Calcination",
+    "Orders" : [
+      "STATS;Needs;-0.3",
+     "STATS;Culture;-0.3",
+     "STATS;Science;-0",
+     "STATS;Socials;+0.3"
+    ]
+  },
+  "3": {
+    "Id" : "3",
+    "Name" : "Eveil",
+    "Orders" : [
+      "STATS;Needs;+0.3",
+     "STATS;Culture;-0.15",
+     "STATS;Science;-0.3",
+     "STATS;Socials;-0.3"
+    ]
+  },
+  "6" : {
+    "Id" : "6",
+    "Name" : "Discours des vents",
+    "Orders" : [
+     "STATS;Needs;-0.15",
+     "STATS;Culture;+0.3",
+     "STATS;Science;+0.15",
+     "STATS;Socials;+0.3"
+    ]
+  },
+  "9" : {
+    "Id" : "9",
+    "Name" : "Serpent des eaux",
+    "Orders" : [
+     "STATS;Needs;+0.3",
+     "STATS;Culture;+0.15",
+     "STATS;Science;-0.3",
+     "STATS;Socials;-0.3"
+    ]
+  },
+"48" : {
+    "Id" : "48",
+    "Name" : "Inspiration",
+    "Orders" : [
+     "SPAWN;Mine;2",
+     "STATS;Needs;+0.15",
+     "STATS;Culture;0",
+     "STATS;Science;+0.05",
+     "STATS;Socials;+0.05"
+    ],
+	"Illu" : "Champ"
+},
+"49" : {
+	"Id" : "49",
+    "Name" : "Forestation",
+    "Orders" : [
+     "SPAWN;Foret;3",
+     "STATS;Needs;+0.05",
+     "STATS;Culture;0.05",
+     "STATS;Science;+0.05",
+     "STATS;Socials;+0"
+   ],
+	"Illu" : "Foret"
+  },
+"40" : {
+    "Id" : "40",
+    "Name" : "Trésor caché",
+    "Orders" : [
+     "STATS;Needs;+0.1",
+     "STATS;Culture;0",
+     "STATS;Science;0",
+     "STATS;Socials;+0.05"
+    ],
+	"Illu" : "Mine"
+  }
 }

@@ -22,9 +22,9 @@ public class Spell {
 		this.orders = orders;
 	}
 
-	public void onSpellActivated () {
+	public void onSpellActivated (RaycastHit target) {
 		foreach (Order order in orders) {
-			order.execute();
+			order.execute(target);
 		}
 	}
 }

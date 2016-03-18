@@ -62,8 +62,4 @@ public class GodData {
 			illu = value;
 		}
 	}
-
-	public void triggerSpell(int index){
-		spells[index].onSpellActivated();
-	}
 }

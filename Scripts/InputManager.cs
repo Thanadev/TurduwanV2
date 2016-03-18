@@ -4,6 +4,8 @@ using System.Collections;
 public class InputManager : MonoBehaviour {
 
 	God selectedGod;
+	Cell selectedCell;
+	Spell selectedSpell;
 
 	// Use this for initialization
 	void Start () {
@@ -12,18 +14,28 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButtonUp(0)){
+		if(Input.GetMouseButtonUp(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()){
 			Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit)){
 				if(hit.collider.CompareTag("God")){
-					selectedGod=hit.collider.GetComponent<God>();
+					selectedGod = hit.collider.GetComponent<God>();
+				} else if (hit.collider.CompareTag("MapCell")) {
+					if (selectedSpell == null) {
+						selectedCell = hit.collider.GetComponent<Cell>();
+					} else {
+						selectedSpell.onSpellActivated(hit);
+					}
 				}
 			}
+		} else if (Input.GetMouseButtonUp(1)) {
+			selectedSpell = null;
 		}
 	}
 
 	public void onSpellTrigger(int index){
-		selectedGod.triggerSpell(index);
+		if (selectedGod != null) {
+			selectedSpell = GameManager.getGod(selectedGod.id).Spells[index];
+		}
 	}
 }

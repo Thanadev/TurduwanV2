@@ -4,29 +4,16 @@ using System.Collections;
 public class God : MonoBehaviour {
 
 	public int id;
-	protected GodData godData;
+	SpriteRenderer sR;
 
 	// Use this for initialization
 	void Start () {
-		godData = MainController.loadGod(id);
-		GetComponent<SpriteRenderer>().sprite = godData.Illu;
+		sR = GetComponent<SpriteRenderer>();
+		sR.sprite = GameManager.getGod(id).Illu;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
-	}
-
-	public GodData GodData {
-		get {
-			return this.godData;
-		}
-		set {
-			godData = value;
-		}
-	}
-
-	public void triggerSpell(int index){
-		godData.triggerSpell(index);
 	}
 }
