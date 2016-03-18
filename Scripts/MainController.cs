@@ -33,17 +33,20 @@ public class MainController {
 		return new GodData(id, godName, title, spells, illu);
 	}
 
-	public static Spell loadGameResources (int resourceId) {
+	public static GameResource loadGameResources (int resourceId) {
 		JSONObject json = JSONObject.Parse(getJsonFromFile("gameResources.json"));
 		json = json.GetObject(resourceId.ToString());
 		int id = (int)json.GetNumber("Id");
-		string spellName = json.GetString("Name");
-		JSONArray jOrders = json.GetArray("Orders");
-		Order [] orders = new Order[jOrders.Length];
-		for (int i = 0; i < orders.Length; i++) {
-			orders[i] = loadOrder(jOrders[i].Str);
-		}
-		return new Spell(id, spellName, orders);
+		string resourceName = json.GetString("Name");
+		int duration = (int)json.GetNumber("Duration");
+		string resourceType = json.GetString("Type");
+		string resourceImage = json.GetString("Image");
+		JSONObject valuePerTick = json.GetObject ("ValuePerTick");
+		float VptNeeds =(float)valuePerTick.GetNumber("Needs");
+		float VptCulture = (float)valuePerTick.GetNumber("Culture");
+		float VptScience = (float)valuePerTick.GetNumber("Science");
+		float VptSocials = (float)valuePerTick.GetNumber("Socials");
+		return new GameResource (id, resourceName, resourceType, resourceImage, duration, VptNeeds, VptCulture, VptScience, VptSocials);
 	}
 
 	public static Order loadOrder (string order) {
