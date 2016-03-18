@@ -1,0 +1,30 @@
+{
+  "0" : {
+    "Id" : "0",
+    "Name" : "Yamakasai",
+    "Title" : "Dieu du feu",
+    "Spells" : [0],
+    "Illu" : "0.png"
+  },
+  "1" : {
+    "Id" : "1",
+    "Name" : "Beher",
+    "Title" : "Déesse de la terre",
+    "Spells" : [3],
+    "Illu" : "1.png"
+  },
+   "2" : {
+    "Id" : "2",
+    "Name" : "Havayat",
+    "Title" : "Dieu de l'air",
+    "Spells" : [6],
+    "Illu" : "2.png"
+  },
+   "3" : {
+    "Id" : "3",
+    "Name" : "Varuna",
+    "Title" : "Déesse de l'eau",
+    "Spells" : [9],
+    "Illu" : "3.png"
+  }
+}

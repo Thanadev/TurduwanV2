@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GuiManager : MonoBehaviour {
 
-	public Text needs, culture, science, socials, demons;
+	public InputManager inputManager;
+	public Text[] properties;
+	public Text demons;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +19,7 @@ public class GuiManager : MonoBehaviour {
 	
 	}
 
-	public void onSpellTriggerPressed () {
-		MainController.loadSpell(0).onSpellActivated();
+	public void onSpellTriggerPressed (int index) {
+		inputManager.onSpellTrigger(index);
 	}
 }

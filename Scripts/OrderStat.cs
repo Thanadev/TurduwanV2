@@ -3,9 +3,9 @@ using System.Collections;
 
 public class OrderStat : Order {
 	protected float modifier;
-	protected string stat;
+	protected Stat stat;
 
-	public OrderStat (string stat, float modifier)
+	public OrderStat (Stat stat, float modifier)
 	{
 		this.modifier = modifier;
 		this.stat = stat;
@@ -13,7 +13,7 @@ public class OrderStat : Order {
 
 	public override void execute ()
 	{
-		Debug.Log("Cool");
+		GameManager.getInstance().civi.modifyStat((int) stat, modifier);
 	}
 	
 	public float Modifier {
@@ -25,7 +25,7 @@ public class OrderStat : Order {
 		}
 	}
 
-	public string Stat {
+	public Stat Stat {
 		get {
 			return this.stat;
 		}

@@ -1,0 +1,41 @@
+{
+  "2" : {
+    "Id" : 2,
+    "Name" : "Champ",
+    "ValuePerTick" : {
+      "Needs" : 0.02,
+      "Culture" : 0,
+      "Socials" : 0,
+      "Science" : 0
+    },
+    "Duration" : 5,
+    "Type" : "FOOD",
+    "Image" : ""
+  },
+  "3" : {
+    "Id" : 3,
+    "Name" : "Forêt",
+    "ValuePerTick" : {
+      "Needs" : 0.01,
+      "Culture" : 0,
+      "Socials" : 0,
+      "Science" : 0.01
+    },
+    "Duration" : 10,
+    "Type" : "WEALTH",
+    "Image" : ""
+  },
+  "5" : {
+    "Id" : 5,
+    "Name" : "Mine",
+    "ValuePerTick" : {
+      "Needs" : 0,
+      "Culture" : 0,
+      "Socials" : 0,
+      "Science" : 0.01
+    },
+    "Duration" : 10,
+    "Type" : "WEALTH",
+    "Image" : ""
+  },
+}

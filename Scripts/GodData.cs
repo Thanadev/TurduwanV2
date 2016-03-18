@@ -7,13 +7,15 @@ public class GodData {
 	protected string godName;
 	protected string title;
 	protected Spell[] spells;
+	protected Sprite illu;
 
-	public GodData (int id, string godName, string title, Spell[] spells)
+	public GodData (int id, string godName, string title, Spell[] spells, Sprite illu)
 	{
 		this.id = id;
 		this.godName = godName;
 		this.title = title;
 		this.spells = spells;
+		this.illu = illu;
 	}
 	
 	public int Id {
@@ -50,5 +52,18 @@ public class GodData {
 		set {
 			spells = value;
 		}
+	}
+
+	public Sprite Illu {
+		get {
+			return this.illu;
+		}
+		set {
+			illu = value;
+		}
+	}
+
+	public void triggerSpell(int index){
+		spells[index].onSpellActivated();
 	}
 }
