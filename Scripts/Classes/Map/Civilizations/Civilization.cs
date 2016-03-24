@@ -2,8 +2,17 @@
 using System.Collections;
 
 public class Civilization {
-	
+
+	protected int idCivi;
+	protected CiviCondition[] conditions;
 	protected float[] prop;
+
+	public Civilization (int idCivi, CiviCondition[] conditions) : this()
+	{
+		this.idCivi = idCivi;
+		this.conditions = conditions;
+	}
+
 
 	public Civilization ()
 	{
@@ -33,5 +42,24 @@ public class Civilization {
 		if(stat>2) return 2;
 		if(stat<0) return 0;
 		return stat;
+	}
+
+	public bool isSpawnable (Cell host) {
+		foreach (CiviCondition condition in conditions) {
+			if (!condition.isVerified(host)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public int IdCivi {
+		get {
+			return this.idCivi;
+		}
+		set {
+			idCivi = value;
+		}
 	}
 }

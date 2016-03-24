@@ -35,7 +35,10 @@ public class InputManager : MonoBehaviour {
 
 	public void onSpellTrigger(int index){
 		if (selectedGod != null) {
-			selectedSpell = GameManager.getGod(selectedGod.id).Spells[index];
+			GodData god = GameManager.getGod(selectedGod.id);
+			if (god.Spells.Length > index) {
+				selectedSpell = god.Spells[index];
+			}
 		}
 	}
 }

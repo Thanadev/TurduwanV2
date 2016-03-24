@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Map : MonoBehaviour {
 
 	public GameObject tracer;
-	List<Cell> cells;
+	static List<Cell> cells;
 
 	// Use this for initialization
 	void Start () {
@@ -35,7 +35,7 @@ public class Map : MonoBehaviour {
 		}
 	}
 
-	public Cell findCell (Vector2 position) {
+	public static Cell findCell (Vector2 position) {
 		foreach (Cell cell in cells) {
 			if (cell.Position == position) {
 				return cell;
@@ -43,5 +43,16 @@ public class Map : MonoBehaviour {
 		}
 
 		return null;
+	}
+
+	public static List<Cell> getCellsInArea (Vector2 origin, int area) {
+		List<Cell> areaCells = new List<Cell>();
+		for (int x = -area; x <= area; x++) {
+			for (int y = area+1; y >= area-1; y--) {
+				areaCells.Add(findCell(origin + new Vector2(x, y)));
+			}
+		}
+
+		return areaCells;
 	}
 }

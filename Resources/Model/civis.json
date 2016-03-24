@@ -1,0 +1,30 @@
+{
+	"AllCivilizations": [
+  		{
+		    "Name": "Peuple des montagnes",
+		    "Needs": 1.0,
+		    "Socials": 1.0,
+		    "Culture": 1.0,
+		    "Science": 1.0,
+		    "Conditions": [
+		      "Resource;3",
+		      "Resource;5"
+		    ],
+			"Environment": "MOUNTAIN",
+			"Village": "CiviTest"
+		},
+		{
+		    "Name": "Peuple du feu",
+		    "Needs": 1.0,
+		    "Socials": 1.0,
+		    "Culture": 1.0,
+		    "Science": 1.0,
+		    "Conditions": [
+		      "Resource;3",
+		      "Resource;2"
+		    ],
+			"Environment": "VALLEY",
+			"Village": "CiviTest"
+		 }
+	]
+}

@@ -33,7 +33,8 @@ public class MainController {
 		return new GodData(id, godName, title, spells, illu);
 	}
 
-	public static GameResource loadGameResources (int resourceId) {
+
+	public static GameResource loadGameResource (int resourceId) {
 		JSONObject json = JSONObject.Parse(getJsonFromFile("gameResources.json"));
 		json = json.GetObject(resourceId.ToString());
 
@@ -78,10 +79,41 @@ public class MainController {
 			return new OrderStat (stat, float.Parse(splitOrder[2]));
 			break;
 		case "SPAWN":
-			return new OrderSpawn(loadGameResources(int.Parse(splitOrder[2])));
+			return new OrderSpawn(loadGameResource(int.Parse(splitOrder[2])));
 			break;
 		default:
 			Debug.LogError("Order type not implemented !");
+			break;
+		}
+
+		return null;
+	}
+
+	public static List<Civilization> loadAllCivis () {
+		List<Civilization> civis = new List<Civilization>();
+		JSONObject json = JSONObject.Parse(getJsonFromFile("civis.json"));
+		JSONArray jCivis = json.GetArray("AllCivilizations");
+
+		for (int i = 0; i < jCivis.Length; i++) {
+			JSONObject jCivi = jCivis[i].Obj;
+			JSONArray jConds = jCivi.GetArray("Conditions");
+			CiviCondition[] conditions = new CiviCondition[jConds.Length];
+			for (int j = 0; j < conditions.Length; j++) {
+				conditions[j] = loadCiviCondition(jConds[j].Str);
+			}
+
+			civis.Add(new Civilization(i, conditions));
+		}
+
+		return civis;
+	}
+
+	public static CiviCondition loadCiviCondition (string condition) {
+		string [] splitCond = condition.Split(';');
+
+		switch (splitCond[0]) {
+		case "Resource":
+			return new CiviResourceCondition(loadGameResource(int.Parse(splitCond[1])));
 			break;
 		}
 

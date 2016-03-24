@@ -67,6 +67,7 @@
     "Id" : "40",
     "Name" : "Trésor caché",
     "Orders" : [
+		"SPAWN;Foret;5",
      "STATS;Needs;+0.1",
      "STATS;Culture;0",
      "STATS;Science;0",

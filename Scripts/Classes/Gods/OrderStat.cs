@@ -13,7 +13,10 @@ public class OrderStat : Order {
 
 	public override void execute (RaycastHit target)
 	{
-		GameManager.getInstance().civi.modifyStat((int) stat, modifier);
+		Cell cell = target.collider.GetComponent<Cell>();
+		if (cell != null && cell.Owner != null) {
+			cell.Owner.modifyStat((int) stat, modifier);
+		}
 	}
 	
 	public float Modifier {

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 	public float demons;
-	public Civilization civi;
 
 	private static GameManager instance;
 	public GuiManager guiM;
@@ -13,17 +12,21 @@ public class GameManager : MonoBehaviour {
 	public float tickTime;
 
 	public static List<GodData> gods;
+	public static List<Civilization> civis;
+	public static List<GameResource> gameResources;
 
 	void Awake () {
 		instance = this;
-		civi = new Civilization();
 		gods = new List<GodData>();
+		civis = new List<Civilization>();
 
 		GameObject[] g = GameObject.FindGameObjectsWithTag("God");
 		foreach (GameObject god in g) {
 			GodData toAdd = MainController.loadGod(god.GetComponent<God>().id);
 			gods.Add(toAdd);
 		}
+
+		civis = MainController.loadAllCivis();
 	}
 
 	// Use this for initialization
@@ -45,8 +48,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void resolveTick () {
-		civi.resolveTick();
-
 		if (demons >= 1.0) {
 			Application.LoadLevelAsync("GameOver");
 		}

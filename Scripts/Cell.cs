@@ -8,6 +8,7 @@ public class Cell : MonoBehaviour {
 
 	FoodResource food;
 	WealthResource wealth;
+	Civilization pop;
 
 	public GameObject foodSprite;
 	public GameObject wealthSprite;
@@ -21,6 +22,17 @@ public class Cell : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	protected void checkCiviCondition () {
+		foreach (Civilization civi in GameManager.civis) {
+			if (civi.isSpawnable(this)) {
+				this.owner = civi;
+				return;
+			} else {
+				Debug.Log("Nothing to spawn");
+			}
+		}
 	}
 
 	public Vector2 Position {
@@ -52,6 +64,7 @@ public class Cell : MonoBehaviour {
 			} else {
 				foodSprite.SetActive(true);
 			}
+			checkCiviCondition();
 		}
 	}
 
@@ -66,6 +79,7 @@ public class Cell : MonoBehaviour {
 			} else {
 				wealthSprite.SetActive(true);
 			}
+			checkCiviCondition();
 		}
 	}
 }
