@@ -6,4 +6,5 @@ public class GodDat : ScriptableObject {
 	public int id;
 	public string godName, godTitle;
 	public SpellDat [] spells;
+	public Sprite illu;
 }

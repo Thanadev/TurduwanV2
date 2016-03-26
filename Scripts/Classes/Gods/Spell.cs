@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Spell {
-	protected int id;
+	/*protected int id;
 	protected string spellName;
 	protected Order [] orders;
 
@@ -26,5 +26,5 @@ public class Spell {
 		foreach (Order order in orders) {
 			order.execute(target);
 		}
-	}
+	}*/
 }

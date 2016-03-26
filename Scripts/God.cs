@@ -9,7 +9,7 @@ public class God : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sR = GetComponent<SpriteRenderer>();
-		sR.sprite = GameManager.getGod(id).Illu;
+		sR.sprite = Model.getGod(id).illu;
 	}
 	
 	// Update is called once per frame

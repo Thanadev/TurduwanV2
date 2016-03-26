@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[CreateAssetMenu(menuName = "Game/Order/Spawn", fileName = "New Spawn Order")]
 public class OrderSpawn : Order {
 
-	protected GameResource toSpawn;
-
-	public OrderSpawn (GameResource toSpawn)
-	{
-		this.toSpawn = toSpawn;
-	}
-	
+	public GameResourceDat toSpawn;
 
 	public override void execute (RaycastHit target)
 	{

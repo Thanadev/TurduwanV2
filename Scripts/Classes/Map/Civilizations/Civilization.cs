@@ -4,21 +4,13 @@ using System.Collections;
 public class Civilization {
 
 	protected int idCivi;
-	protected CiviCondition[] conditions;
 	protected float[] prop;
 
-	public Civilization (int idCivi, CiviCondition[] conditions) : this()
-	{
-		this.idCivi = idCivi;
-		this.conditions = conditions;
-	}
-
-
-	public Civilization ()
+	public Civilization (CiviDat model)
 	{
 		prop = new float[(int)Stat.stNb];
 		for (int i = 0; i < prop.Length; i++) {
-			prop[i] = 1f;
+			prop[i] = model.prop[i];
 			GameManager.getInstance().guiM.properties[i].text = ((int)(prop[i] * 100)).ToString() + "%";
 		}
 	}
@@ -42,16 +34,6 @@ public class Civilization {
 		if(stat>2) return 2;
 		if(stat<0) return 0;
 		return stat;
-	}
-
-	public bool isSpawnable (Cell host) {
-		foreach (CiviCondition condition in conditions) {
-			if (!condition.isVerified(host)) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	public int IdCivi {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Boomlagoon.JSON;
 
 public class MainController {
-	
+	/*
 	public static Spell loadSpell (int spellID) {
 		JSONObject json = JSONObject.Parse(getJsonFromFile("spells.json"));
 		json = json.GetObject(spellID.ToString());
@@ -124,6 +124,6 @@ public class MainController {
 		path = path.Replace(".json", "");
 		TextAsset json = Resources.Load<TextAsset>("Model/" + path);
 		return json.text;
-	}
+	}*/
 
 }

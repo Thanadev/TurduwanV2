@@ -6,9 +6,8 @@ public class Cell : MonoBehaviour {
 	Vector2 position;
 	Civilization owner;
 
-	FoodResource food;
-	WealthResource wealth;
-	Civilization pop;
+	FoodResourceDat food;
+	WealthResourceDat wealth;
 
 	public GameObject foodSprite;
 	public GameObject wealthSprite;
@@ -25,13 +24,15 @@ public class Cell : MonoBehaviour {
 	}
 
 	protected void checkCiviCondition () {
-		foreach (Civilization civi in GameManager.civis) {
-			if (civi.isSpawnable(this)) {
-				this.owner = civi;
-				return;
-			} else {
-				Debug.Log("Nothing to spawn");
-			}
+		if (this.owner == null) {
+			foreach (CiviDat civi in Model.civis) {
+				if (civi.isSpawnable(this)) {
+					this.owner = new Civilization(civi);
+					return;
+				} else {
+					Debug.Log("Nothing to spawn");
+				}
+			}	
 		}
 	}
 
@@ -53,7 +54,7 @@ public class Cell : MonoBehaviour {
 		}
 	}
 
-	public FoodResource Food {
+	public FoodResourceDat Food {
 		get {
 			return this.food;
 		}
@@ -68,7 +69,7 @@ public class Cell : MonoBehaviour {
 		}
 	}
 
-	public WealthResource Wealth {
+	public WealthResourceDat Wealth {
 		get {
 			return this.wealth;
 		}

@@ -5,7 +5,7 @@ public class InputManager : MonoBehaviour {
 
 	God selectedGod;
 	Cell selectedCell;
-	Spell selectedSpell;
+	SpellDat selectedSpell;
 
 	// Use this for initialization
 	void Start () {
@@ -35,9 +35,9 @@ public class InputManager : MonoBehaviour {
 
 	public void onSpellTrigger(int index){
 		if (selectedGod != null) {
-			GodData god = GameManager.getGod(selectedGod.id);
-			if (god.Spells.Length > index) {
-				selectedSpell = god.Spells[index];
+			GodDat god = Model.getGod(selectedGod.id);
+			if (god.spells.Length > index) {
+				selectedSpell = god.spells[index];
 			}
 		}
 	}

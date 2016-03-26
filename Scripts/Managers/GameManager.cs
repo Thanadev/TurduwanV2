@@ -11,22 +11,9 @@ public class GameManager : MonoBehaviour {
 	private float timer;
 	public float tickTime;
 
-	public static List<GodData> gods;
-	public static List<Civilization> civis;
-	public static List<GameResource> gameResources;
 
 	void Awake () {
 		instance = this;
-		gods = new List<GodData>();
-		civis = new List<Civilization>();
-
-		GameObject[] g = GameObject.FindGameObjectsWithTag("God");
-		foreach (GameObject god in g) {
-			GodData toAdd = MainController.loadGod(god.GetComponent<God>().id);
-			gods.Add(toAdd);
-		}
-
-		civis = MainController.loadAllCivis();
 	}
 
 	// Use this for initialization
@@ -51,15 +38,5 @@ public class GameManager : MonoBehaviour {
 		if (demons >= 1.0) {
 			Application.LoadLevelAsync("GameOver");
 		}
-	}
-
-	public static GodData getGod (int id) {
-		foreach (GodData god in gods) {
-			if (god.Id == id) {
-				return god;
-			}
-		}
-
-		return null;
 	}
 }

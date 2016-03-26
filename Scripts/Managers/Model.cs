@@ -9,12 +9,14 @@ public class Model : MonoBehaviour {
 	public static List<GodDat> gods;
 	public static List<SpellDat> spells;
 	public static List<GameResourceDat> resources;
+	public static List<CiviDat> civis;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		gods = new List<GodDat>();
 		spells = new List<SpellDat>();
 		resources = new List<GameResourceDat>();
+		civis = new List<CiviDat>();
 
 		loadModel();
 	}
@@ -29,7 +31,39 @@ public class Model : MonoBehaviour {
 				gods.Add(loaded as GodDat);
 			} else if (loaded is SpellDat) {
 				spells.Add(loaded as SpellDat);
+			} else if (loaded is CiviDat) {
+				civis.Add(loaded as CiviDat);
 			}
 		}
+	}
+
+	public static GodDat getGod (int id) {
+		foreach (GodDat god in gods) {
+			if (god.id == id) {
+				return god;
+			}
+		}
+
+		return null;
+	}
+
+	public static GameResourceDat getResource (int id) {
+		foreach (GameResourceDat resource in resources) {
+			if (resource.id == id) {
+				return resource;
+			}
+		}
+
+		return null;
+	}
+
+	public static SpellDat getSpell (int id) {
+		foreach (SpellDat spell in spells) {
+			if (spell.id == id) {
+				return spell;
+			}
+		}
+
+		return null;
 	}
 }
