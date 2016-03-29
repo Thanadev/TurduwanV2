@@ -12,8 +12,11 @@ public class GameManager : MonoBehaviour {
 	public float tickTime;
 
 
+	public List<Civilization> spawnedCivis;
+
 	void Awake () {
 		instance = this;
+		spawnedCivis = new List<Civilization>();
 	}
 
 	// Use this for initialization
@@ -37,6 +40,10 @@ public class GameManager : MonoBehaviour {
 	private void resolveTick () {
 		if (demons >= 1.0) {
 			Application.LoadLevelAsync("GameOver");
+		}
+
+		foreach (Civilization civi in spawnedCivis) {
+			civi.resolveTick();
 		}
 	}
 }

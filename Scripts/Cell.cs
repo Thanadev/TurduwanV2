@@ -27,7 +27,7 @@ public class Cell : MonoBehaviour {
 		if (this.owner == null) {
 			foreach (CiviDat civi in Model.civis) {
 				if (civi.isSpawnable(this)) {
-					this.owner = new Civilization(civi);
+					new Civilization(civi, this);
 					return;
 				} else {
 					Debug.Log("Nothing to spawn");

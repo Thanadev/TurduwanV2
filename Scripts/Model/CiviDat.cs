@@ -6,6 +6,7 @@ public class CiviDat : ScriptableObject {
 	public int idCivi;
 	public CiviConditionDat[] conditions;
 	public float[] prop;
+	public string prefabPath;
 
 	public void resolveTick () {
 		for (int i = 0; i < (int) Stat.stNb; i++) {
