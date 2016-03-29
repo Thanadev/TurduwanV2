@@ -6,6 +6,7 @@ public class Model : MonoBehaviour {
 
 	public string modelPath;
 
+	public static GameSettings gameSettings;
 	public static List<GodDat> gods;
 	public static List<SpellDat> spells;
 	public static List<GameResourceDat> resources;
@@ -33,6 +34,8 @@ public class Model : MonoBehaviour {
 				spells.Add(loaded as SpellDat);
 			} else if (loaded is CiviDat) {
 				civis.Add(loaded as CiviDat);
+			} else if (loaded is GameSettings) {
+				gameSettings = loaded as GameSettings;
 			}
 		}
 	}

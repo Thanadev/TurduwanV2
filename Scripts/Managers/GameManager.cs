@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
-	public float demons;
+	private float demons;
 
 	private static GameManager instance;
 	public GuiManager guiM;
@@ -38,12 +38,24 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void resolveTick () {
+		foreach (Civilization civi in spawnedCivis) {
+			civi.resolveTick();
+		}
+
+		guiM.resolveTick();
+
 		if (demons >= 1.0) {
 			Application.LoadLevelAsync("GameOver");
 		}
+	}
 
-		foreach (Civilization civi in spawnedCivis) {
-			civi.resolveTick();
+	public float Demons {
+		get {
+			return this.demons;
+		}
+		set {
+			demons = value;
+			guiM.demons.text = (demons * 100).ToString() + "%";
 		}
 	}
 }

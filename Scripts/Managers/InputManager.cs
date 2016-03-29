@@ -3,6 +3,7 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour {
 
+	public GuiManager guiM;
 	public GameObject cameraPivot;
 
 	God selectedGod;
@@ -21,20 +22,20 @@ public class InputManager : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit)){
 				if(hit.collider.CompareTag("God")){
-					selectedGod = hit.collider.GetComponent<God>();
+					onGodSelected(hit.collider.GetComponent<God>());
 				} else if (hit.collider.CompareTag("MapCell")) {
 					if (selectedSpell == null) {
-						selectedCell = hit.collider.GetComponent<Cell>();
-						onCellSelected();
+						onCellSelected(hit.collider.GetComponent<Cell>());
 					} else {
 						selectedSpell.onSpellActivated(hit);
+						selectedSpell = null;
+						guiM.onSpellTriggerPressed(-1);
 					}
 				}
 			}
 		} else if (Input.GetMouseButtonUp(1)) {
 			selectedSpell = null;
 		} else if (Input.GetMouseButton(2) && Input.GetKey(KeyCode.LeftShift)) {
-
 			Vector3 tmp = new Vector3();
 			tmp.x = -Input.GetAxisRaw("Mouse X");
 			tmp.z = -Input.GetAxisRaw("Mouse Y");
@@ -53,22 +54,44 @@ public class InputManager : MonoBehaviour {
 	}
 
 	public void onSpellTrigger(int index){
-		if (selectedGod != null) {
+		if (index > -1 && selectedGod != null) {
 			GodDat god = Model.getGod(selectedGod.id);
 			if (god.spells.Length > index) {
 				selectedSpell = god.spells[index];
+			} else {
+				selectedSpell = null;
 			}
+		} else {
+			selectedSpell = null;
 		}
 	}
 
-	protected void onCellSelected () {
-		if (selectedCell.Owner != null) {
-			GameManager.getInstance().guiM.propPanel.SetActive(true);
-			for (int i = 0; i < (int) Stat.stNb; i++) {
-				GameManager.getInstance().guiM.properties[i].text = ((int)(selectedCell.Owner.Prop[i] * 100)).ToString() + "%";
-			}
-		} else {
-			GameManager.getInstance().guiM.propPanel.SetActive(false);
+
+	public void onGodSelected (God god) {
+		selectedGod = god;
+	}
+
+	public void onCellSelected (Cell cell) {
+		selectedCell = cell;
+		guiM.actualizeLocalInfo();
+	}
+
+
+	public God SelectedGod {
+		get {
+			return this.selectedGod;
+		}
+	}
+
+	public Cell SelectedCell {
+		get {
+			return this.selectedCell;
+		}
+	}
+
+	public SpellDat SelectedSpell {
+		get {
+			return this.selectedSpell;
 		}
 	}
 }
