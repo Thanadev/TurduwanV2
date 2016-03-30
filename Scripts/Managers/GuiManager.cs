@@ -70,7 +70,9 @@ public class GuiManager : MonoBehaviour {
 					spellButtons[i].gameObject.SetActive(false);
 				}
 			}
-			godPanel.SetActive(true);
+			if (godPanel != null) {
+				godPanel.SetActive(true);
+			}
 			if (faithGauge != null) {
 				faithGauge.text = ((int)(inputManager.SelectedGod.Faith * 100)).ToString() + "%";
 			}
@@ -78,7 +80,9 @@ public class GuiManager : MonoBehaviour {
 			for (int i = 0; i < spellButtons.Length; i++) {
 				spellButtons[i].gameObject.SetActive(false);
 			}
-			godPanel.SetActive(false);
+			if (godPanel != null) {
+				godPanel.SetActive(false);
+			}
 		}
 	}
 }
