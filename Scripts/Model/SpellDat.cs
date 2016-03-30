@@ -4,7 +4,7 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Game/Spell", fileName="New Spell")]
 public class SpellDat : ScriptableObject {
 	public int id;
-	public string name;
+	public new string name;
 	public Order[] orders;
 
 	public void onSpellActivated (RaycastHit target) {

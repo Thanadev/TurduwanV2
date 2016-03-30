@@ -11,17 +11,27 @@ public class GuiManager : MonoBehaviour {
 	public GameObject propPanel;
 	public Text[] properties;
 	public Text demons;
+	public Text gTimer;
+	public GameObject godPanel;
+	public Text faithGauge;
 	public Button[] spellButtons;
 
 	// Use this for initialization
 	void Start () {
 		demons.text = "0%";
 		propPanel.SetActive(false);
+		actualizeGodPanel();
+	}
+
+	void Update () {
+		if (gTimer != null) {
+			gTimer.text = ((int) GameManager.gTimer).ToString();
+		}
 	}
 
 	public void onSpellTriggerPressed (int index) {
-		foreach (Button button in spellButtons) {
-			button.image.color = Color.white;
+		for (int i = 0; i < spellButtons.Length; i++) {
+			spellButtons[i].image.color = Color.white;
 		}
 		if (index > -1 && index < spellButtons.Length 
 			&& inputManager.SelectedGod != null && index < Model.getGod(inputManager.SelectedGod.id).spells.Length)
@@ -32,6 +42,7 @@ public class GuiManager : MonoBehaviour {
 	}
 
 	public void resolveTick () {
+		actualizeGodPanel();
 		actualizeLocalInfo();
 	}
 
@@ -45,6 +56,29 @@ public class GuiManager : MonoBehaviour {
 			} else {
 				propPanel.SetActive(false);
 			}
+		} else {
+			propPanel.SetActive(false);
+		}
+	}
+
+	public void actualizeGodPanel () {
+		if (inputManager.SelectedGod != null) {
+			for (int i = 0; i < spellButtons.Length; i++) {
+				if (i < Model.getGod(inputManager.SelectedGod.id).spells.Length) {
+					spellButtons[i].gameObject.SetActive(true);
+				} else {
+					spellButtons[i].gameObject.SetActive(false);
+				}
+			}
+			godPanel.SetActive(true);
+			if (faithGauge != null) {
+				faithGauge.text = ((int)(inputManager.SelectedGod.Faith * 100)).ToString() + "%";
+			}
+		} else {
+			for (int i = 0; i < spellButtons.Length; i++) {
+				spellButtons[i].gameObject.SetActive(false);
+			}
+			godPanel.SetActive(false);
 		}
 	}
 }

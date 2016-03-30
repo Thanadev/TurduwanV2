@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
-	private float demons;
-
-	private static GameManager instance;
+	
 	public GuiManager guiM;
-
-	private float timer;
+	public bool debugMode;
 	public float tickTime;
 
+	private float demons;
+	private float timer;
+	public static float gTimer;
+
+	private static GameManager instance;
 
 	public List<Civilization> spawnedCivis;
 
@@ -22,11 +24,13 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		timer = 0;
+		gTimer = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		timer += Time.deltaTime;
+		gTimer += Time.deltaTime;
 		if(timer >= tickTime){
 			timer = 0;
 			resolveTick();
@@ -42,6 +46,10 @@ public class GameManager : MonoBehaviour {
 			civi.resolveTick();
 		}
 
+		foreach (GameObject god in GameObject.FindGameObjectsWithTag("God")) {
+			god.GetComponent<God>().resolveTick();
+		}
+
 		guiM.resolveTick();
 
 		if (demons >= 1.0) {
@@ -55,7 +63,7 @@ public class GameManager : MonoBehaviour {
 		}
 		set {
 			demons = value;
-			guiM.demons.text = (demons * 100).ToString() + "%";
+			guiM.demons.text = ((int)(demons * 100)).ToString() + "%";
 		}
 	}
 }

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
 
 	public GuiManager guiM;
+	public bool debugMode;
 	public GameObject cameraPivot;
 
 	God selectedGod;
@@ -35,12 +37,12 @@ public class InputManager : MonoBehaviour {
 			}
 		} else if (Input.GetMouseButtonUp(1)) {
 			selectedSpell = null;
-		} else if (Input.GetMouseButton(2) && Input.GetKey(KeyCode.LeftShift)) {
+		} else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
 			Vector3 tmp = new Vector3();
-			tmp.x = -Input.GetAxisRaw("Mouse X");
-			tmp.z = -Input.GetAxisRaw("Mouse Y");
+			tmp.x = Input.GetAxisRaw("Horizontal");
+			tmp.z = Input.GetAxisRaw("Vertical");
 			tmp = cameraPivot.transform.TransformDirection(tmp);
-			cameraPivot.GetComponent<Rigidbody>().velocity = tmp * 50;
+			cameraPivot.GetComponent<Rigidbody>().velocity = tmp * 20;
 
 		} else if (Input.GetMouseButton(2)) {
 
@@ -53,7 +55,7 @@ public class InputManager : MonoBehaviour {
 		}
 	}
 
-	public void onSpellTrigger(int index){
+	public void onSpellTrigger (int index) {
 		if (index > -1 && selectedGod != null) {
 			GodDat god = Model.getGod(selectedGod.id);
 			if (god.spells.Length > index) {
@@ -69,6 +71,10 @@ public class InputManager : MonoBehaviour {
 
 	public void onGodSelected (God god) {
 		selectedGod = god;
+		for (int i = 0; i < Model.getGod(god.id).spells.Length; i++) {
+			guiM.spellButtons[i].GetComponentInChildren<Text>().text = Model.getGod(god.id).spells[i].name;
+		}
+		guiM.actualizeGodPanel();
 	}
 
 	public void onCellSelected (Cell cell) {

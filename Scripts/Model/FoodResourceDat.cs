@@ -7,4 +7,13 @@ public class FoodResourceDat : GameResourceDat {
 	{
 		target.Food = this;
 	}
+
+	public override void consumeSelf (Civilization owner, Cell cell)
+	{
+		base.consumeSelf (owner, cell);
+		cell.FoodDuration--;
+		if (cell.FoodDuration < 1) {
+			cell.Food = null;
+		}
+	}
 }

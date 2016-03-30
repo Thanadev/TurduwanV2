@@ -7,7 +7,9 @@ public class Cell : MonoBehaviour {
 	Civilization owner;
 
 	FoodResourceDat food;
+	int foodDuration;
 	WealthResourceDat wealth;
+	int wealthDuration;
 
 	public GameObject foodSprite;
 	public GameObject wealthSprite;
@@ -63,6 +65,7 @@ public class Cell : MonoBehaviour {
 			if (value == null) {
 				foodSprite.SetActive(false);
 			} else {
+				foodDuration = value.duration;
 				foodSprite.SetActive(true);
 			}
 			checkCiviCondition();
@@ -78,9 +81,28 @@ public class Cell : MonoBehaviour {
 			if (value == null) {
 				wealthSprite.SetActive(false);
 			} else {
+				wealthDuration = value.duration;
 				wealthSprite.SetActive(true);
 			}
 			checkCiviCondition();
+		}
+	}
+
+	public int FoodDuration {
+		get {
+			return this.foodDuration;
+		}
+		set {
+			foodDuration = value;
+		}
+	}
+
+	public int WealthDuration {
+		get {
+			return this.wealthDuration;
+		}
+		set {
+			wealthDuration = value;
 		}
 	}
 }

@@ -7,4 +7,13 @@ public class WealthResourceDat : GameResourceDat {
 	{
 		target.Wealth = this;
 	}
+
+	public override void consumeSelf (Civilization owner, Cell cell)
+	{
+		base.consumeSelf (owner, cell);
+		cell.WealthDuration--;
+		if (cell.WealthDuration < 1) {
+			cell.Wealth = null;
+		}
+	}
 }
