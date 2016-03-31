@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class GameResourceDat : ScriptableObject {
 	public int id;
 	public new string name;
-	public float[] valuePerTick;
+	public float[] valuePerTick = {0, 0, 0, 0};
 	public int duration;
 
 	public abstract void toCell (Cell target);
