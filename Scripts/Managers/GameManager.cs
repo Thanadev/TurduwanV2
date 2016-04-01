@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		timer += Time.deltaTime;
-		gTimer += Time.deltaTime;
+		if (spawnedCivis.Count > 0) {
+			gTimer += Time.deltaTime;
+		}
 		if(timer >= tickTime){
 			timer = 0;
 			resolveTick();

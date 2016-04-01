@@ -25,7 +25,7 @@ public class GuiManager : MonoBehaviour {
 
 	void Update () {
 		if (gTimer != null) {
-			gTimer.text = ((int) GameManager.gTimer).ToString();
+			gTimer.text = ((int) (GameManager.gTimer/60)).ToString() + "min " + ((int) (GameManager.gTimer%60)).ToString() + "sec";
 		}
 	}
 
