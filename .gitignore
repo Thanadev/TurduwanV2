@@ -1,0 +1,8 @@
+*.md
+*.userprefs
+*.csproj
+*.sln
+Temp
+Release
+Library
+obj

@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
 		guiM.resolveTick();
 
 		if (demons >= 1.0) {
-			Application.LoadLevelAsync("GameOver");
+			Application.LoadLevelAsync("Levels/GameOver");
 		}
 	}
 
