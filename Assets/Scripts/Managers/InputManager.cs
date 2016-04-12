@@ -8,9 +8,10 @@ public class InputManager : MonoBehaviour {
 	public bool debugMode;
 	public GameObject cameraPivot;
 
-	God selectedGod;
+	GodDat selectedGod;
 	Cell selectedCell;
 	SpellDat selectedSpell;
+	GameObject selectedMouseEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -20,24 +21,24 @@ public class InputManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonUp(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()){
-			Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit)){
-				if(hit.collider.CompareTag("God")){
-					onGodSelected(hit.collider.GetComponent<God>());
-				} else if (hit.collider.CompareTag("MapCell")) {
+				if (hit.collider.CompareTag("MapCell")) {
 					if (selectedSpell == null) {
 						onCellSelected(hit.collider.GetComponent<Cell>());
 					} else {
 						selectedSpell.onSpellActivated(hit);
-						selectedSpell = null;
-						guiM.onSpellTriggerPressed(-1);
+						deselectSpell();
 					}
 				}
 			}
 		} else if (Input.GetMouseButtonUp(1)) {
-			selectedSpell = null;
+			
+			deselectSpell();
+		
 		} else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
+
 			Vector3 tmp = new Vector3();
 			tmp.x = Input.GetAxisRaw("Horizontal");
 			tmp.z = Input.GetAxisRaw("Vertical");
@@ -50,31 +51,33 @@ public class InputManager : MonoBehaviour {
 			tmp.y += Input.GetAxisRaw("Mouse X");
 			cameraPivot.transform.rotation = Quaternion.Euler(tmp);
 
-		} else if ((Input.GetAxis("Mouse ScrollWheel") > 0 && GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().orthographicSize > 2) || (Input.GetAxis("Mouse ScrollWheel") < 0 && GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().orthographicSize < 100)) {
+		} else if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && ((Input.GetAxis("Mouse ScrollWheel") > 0 && GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().orthographicSize > 2) || (Input.GetAxis("Mouse ScrollWheel") < 0 && GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().orthographicSize < 100))) {
+
 			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * 5;
 		}
 	}
 
 	public void onSpellTrigger (int index) {
 		if (index > -1 && selectedGod != null) {
-			GodDat god = Model.getGod(selectedGod.id);
-			if (god.spells.Length > index) {
-				selectedSpell = god.spells[index];
+			if (selectedGod.spells.Length > index) {
+				selectedSpell = selectedGod.spells[index];
+				onMouseEffectSelected();
 			} else {
-				selectedSpell = null;
+				deselectSpell();
 			}
 		} else {
-			selectedSpell = null;
+			deselectSpell();
 		}
 	}
 
 
-	public void onGodSelected (God god) {
+	public void onGodSelected (GodDat god) {
 		selectedGod = god;
-		for (int i = 0; i < Model.getGod(god.id).spells.Length; i++) {
-			guiM.spellButtons[i].GetComponentInChildren<Text>().text = Model.getGod(god.id).spells[i].name;
-		}
+		deselectSpell();
 		guiM.actualizeGodPanel();
+		for (int i = 0; i < selectedGod.spells.Length; i++) {
+			guiM.spellButtons[i].GetComponentInChildren<Text>().text = selectedGod.spells[i].name;
+		}
 	}
 
 	public void onCellSelected (Cell cell) {
@@ -82,8 +85,29 @@ public class InputManager : MonoBehaviour {
 		guiM.actualizeLocalInfo();
 	}
 
+	private void deselectSpell () {
+		selectedSpell = null;
+		guiM.onSpellTriggerPressed(-1);
+		onMouseEffectSelected();
+	}
 
-	public God SelectedGod {
+	private void onMouseEffectSelected () {
+		if (selectedMouseEffect != null) {
+			Destroy(selectedMouseEffect);
+			if (selectedSpell == null) {
+				return;
+			}
+		}
+		if (selectedSpell != null) {
+			selectedMouseEffect = selectedSpell.mouseEffect;
+		}
+		if (selectedMouseEffect != null) {
+			selectedMouseEffect = GameObject.Instantiate(selectedMouseEffect, Vector3.zero, selectedMouseEffect.transform.rotation) as GameObject;
+		}
+	}
+
+
+	public GodDat SelectedGod {
 		get {
 			return this.selectedGod;
 		}

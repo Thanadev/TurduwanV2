@@ -15,12 +15,16 @@ public class GuiManager : MonoBehaviour {
 	public GameObject godPanel;
 	public Text faithGauge;
 	public Button[] spellButtons;
+	public GameObject godButtonList;
+	public List<GodButton> godButtons;
 
 	// Use this for initialization
 	void Start () {
 		demons.text = "0%";
+		//populateGodList();
 		propPanel.SetActive(false);
 		actualizeGodPanel();
+
 	}
 
 	void Update () {
@@ -33,7 +37,11 @@ public class GuiManager : MonoBehaviour {
 		for (int i = 0; i < spellButtons.Length; i++) {
 			spellButtons[i].image.color = Color.white;
 		}
-		if (index > -1 && index < spellButtons.Length 
+		if (index <= -1) {
+			return;
+		}
+
+		if (index < spellButtons.Length 
 			&& inputManager.SelectedGod != null && index < Model.getGod(inputManager.SelectedGod.id).spells.Length)
 		{
 			spellButtons[index].image.color = activatedColor;
@@ -44,6 +52,10 @@ public class GuiManager : MonoBehaviour {
 	public void resolveTick () {
 		actualizeGodPanel();
 		actualizeLocalInfo();
+	}
+
+	public void onGodButtonPressed (int id) {
+		inputManager.onGodSelected(Model.getGod(id));
 	}
 
 	public void actualizeLocalInfo () {
@@ -64,7 +76,7 @@ public class GuiManager : MonoBehaviour {
 	public void actualizeGodPanel () {
 		if (inputManager.SelectedGod != null) {
 			for (int i = 0; i < spellButtons.Length; i++) {
-				if (i < Model.getGod(inputManager.SelectedGod.id).spells.Length) {
+				if (i < inputManager.SelectedGod.spells.Length) {
 					spellButtons[i].gameObject.SetActive(true);
 				} else {
 					spellButtons[i].gameObject.SetActive(false);
@@ -74,7 +86,7 @@ public class GuiManager : MonoBehaviour {
 				godPanel.SetActive(true);
 			}
 			if (faithGauge != null) {
-				faithGauge.text = ((int)(inputManager.SelectedGod.Faith * 100)).ToString() + "%";
+				faithGauge.text = ((int)(getGodButton(inputManager.SelectedGod.id).Faith * 100)).ToString() + "%";
 			}
 		} else {
 			for (int i = 0; i < spellButtons.Length; i++) {
@@ -83,6 +95,27 @@ public class GuiManager : MonoBehaviour {
 			if (godPanel != null) {
 				godPanel.SetActive(false);
 			}
+		}
+	}
+
+	protected GodButton getGodButton (int id) {
+		foreach (GodButton button in godButtons) {
+			if (button.id == id) {
+				return button;
+			}
+		}
+
+		Debug.Log("No button found for id " + id);
+		return null;
+	}
+
+	public void populateGodList () {
+		GameObject button = Resources.Load<GameObject>("Prefabs/Gui/GodButton");
+		foreach (GodDat god in Model.gods) {
+			button.GetComponent<GodButton>().id = god.id;
+			button = Instantiate(button);
+			button.transform.SetParent(godButtonList.transform);
+			button.SetActive(true);
 		}
 	}
 }

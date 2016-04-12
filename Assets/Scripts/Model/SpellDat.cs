@@ -6,6 +6,7 @@ public class SpellDat : ScriptableObject {
 	public int id;
 	public new string name;
 	public Order[] orders;
+	public GameObject mouseEffect;
 
 	public void onSpellActivated (RaycastHit target) {
 		Debug.Log(name + " has been triggered !");

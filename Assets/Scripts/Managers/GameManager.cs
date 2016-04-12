@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		foreach (GameObject god in GameObject.FindGameObjectsWithTag("God")) {
-			god.GetComponent<God>().resolveTick();
+			god.GetComponent<GodButton>().resolveTick();
 		}
 
 		guiM.resolveTick();
