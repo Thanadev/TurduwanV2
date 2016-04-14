@@ -13,4 +13,5 @@ public class GameSettings : ScriptableObject
 	public float faithStartValue = 1.0f;
 	public float faithDecreaseRate = -0.01f;
 	public float faithLowLimit = 0.1f;
+	public float spellClickEffectLifetime = 15f;
 }

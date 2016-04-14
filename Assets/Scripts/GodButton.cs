@@ -14,7 +14,7 @@ public class GodButton : MonoBehaviour {
 
 	public void initButton () {
 		GodDat god = Model.getGod(id);
-		godIllu.sprite =  god.illu;
+		godIllu.sprite =  god.listIllu;
 		godName.text = god.godName;
 		buttonScript = GetComponent<Button>();
 		buttonScript.onClick.AddListener(() => GameManager.getInstance().guiM.onGodButtonPressed(id));

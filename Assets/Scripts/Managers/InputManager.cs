@@ -15,7 +15,7 @@ public class InputManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-			
+		onGodSelected(Model.getGod(0));
 	}
 	
 	// Update is called once per frame
@@ -76,7 +76,9 @@ public class InputManager : MonoBehaviour {
 		deselectSpell();
 		guiM.actualizeGodPanel();
 		for (int i = 0; i < selectedGod.spells.Length; i++) {
-			guiM.spellButtons[i].GetComponentInChildren<Text>().text = selectedGod.spells[i].name;
+			if (selectedGod.spells[i].icon != null) {
+				guiM.spellButtons[i].GetComponentInChildren<Image>().sprite = selectedGod.spells[i].icon;
+			}
 		}
 	}
 
@@ -98,7 +100,7 @@ public class InputManager : MonoBehaviour {
 				return;
 			}
 		}
-		if (selectedSpell != null) {
+		if (selectedSpell != null && selectedSpell.mouseEffect != null) {
 			selectedMouseEffect = selectedSpell.mouseEffect;
 		}
 		if (selectedMouseEffect != null) {
